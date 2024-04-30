@@ -1,0 +1,19 @@
+version: '3'
+
+volumes:
+  TodoBot_pg_data:
+
+services:
+  db:
+    image: postgres:13.10
+    container_name: TodoBot_db
+    env_file: .env
+    volumes:
+      - TodoBot_pg_data:/var/lib/postgresql/data
+
+  botapp:
+    build:
+      context: .
+    container_name: TodoBot
+    restart: always
+    command: []
