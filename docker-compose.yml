@@ -8,6 +8,7 @@ services:
     image: postgres:13.10
     container_name: TodoBot_db
     env_file: .env
+    restart: always
     volumes:
       - TodoBot_pg_data:/var/lib/postgresql/data
 
@@ -15,5 +16,7 @@ services:
     build:
       context: .
     container_name: TodoBot
+    env_file: .env
     restart: always
-    command: []
+    depends_on:
+      - db
