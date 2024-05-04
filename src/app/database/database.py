@@ -13,6 +13,7 @@ from config import (
     PORT,
 )
 
+# для дебага
 
 # HOST = "localhost"
 # PORT = 5433
