@@ -10,4 +10,4 @@ RUN pip install -r requirements.txt
 
 COPY ./src ./src
 
-CMD ["python3", "src/run.py", "run"]
+CMD ["python3", "src/main.py", "run"]

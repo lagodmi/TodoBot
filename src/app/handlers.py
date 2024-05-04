@@ -4,7 +4,7 @@ from aiogram.fsm.state import StatesGroup, State
 from aiogram.filters import CommandStart, Command
 from aiogram.types import Message
 
-from .keyboards import kb
+import app.database.requests as rq
 
 
 router = Router()
@@ -16,7 +16,11 @@ class Task(StatesGroup):
 
 @router.message(CommandStart())
 async def bot_start(message: Message):
-    await message.reply('Привет', reply_markup=kb)
+    await rq.set_user(message.from_user.id)
+    await message.reply(
+        'Привет!\nСоздадим первую задачу?\nНажимай на /add',
+        reply_markup=kb
+    )
 
 
 # Обработчик команды /add для добавления задачи
@@ -28,8 +32,8 @@ async def create_task(message: Message, state: FSMContext):
 
 @router.message(Task.task)
 async def add_task(message: Message, state: FSMContext):
-    await state.update_data(task=message.text)
-    data = await state.get_data()
-    await message.answer(f'Задача:\n{data["task"]}\nCохранена.')
+    tg_id: int = message.from_user.id
+    task: str = message.text
+    await rq.set_task(tg_id=tg_id, task=task)
+    await message.answer(f'Задача:\n{task}\nCохранена.')
     await state.clear()
-

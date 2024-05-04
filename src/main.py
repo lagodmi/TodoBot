@@ -17,7 +17,7 @@ dp = Dispatcher()
 
 async def create_tables() -> AsyncEngine:
     """
-        Создание таблиц в базе данных.
+    Создание таблиц в базе данных.
     """
     engine = db_helper.engine
 

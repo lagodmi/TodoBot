@@ -3,6 +3,7 @@ from sqlalchemy.ext.asyncio import (
     async_sessionmaker,
     AsyncSession
 )
+from contextlib import asynccontextmanager
 
 from config import (
     USER,
@@ -11,6 +12,10 @@ from config import (
     HOST,
     PORT,
 )
+
+
+# HOST = "localhost"
+# PORT = 5433
 
 DATABASE_URL = f"postgresql+asyncpg://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB}"
 ECHO = True
@@ -26,6 +31,7 @@ class DatabaseHelper:
             expire_on_commit=False
         )
 
+    @asynccontextmanager
     async def get_scope_session(self) -> AsyncSession:
         async with self.session_factory() as session:
             yield session
