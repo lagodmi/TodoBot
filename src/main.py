@@ -1,13 +1,12 @@
 import asyncio
-from sqlalchemy.ext.asyncio import AsyncEngine
 import logging
 
 from aiogram import Bot, Dispatcher
+from sqlalchemy.ext.asyncio import AsyncEngine
 
-from app.handlers import router
 from app.database.database import db_helper
 from app.database.models import Base
-
+from app.handlers import router
 from config import TOKEN
 
 

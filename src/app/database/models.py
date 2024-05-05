@@ -4,7 +4,7 @@ from sqlalchemy.orm import (
     Mapped,
     mapped_column,
     declared_attr,
-    relationship
+    relationship,
 )
 from sqlalchemy.ext.asyncio import AsyncAttrs
 
@@ -14,7 +14,7 @@ class Base(AsyncAttrs, DeclarativeBase):
 
     @declared_attr.directive
     def __tablename__(cls) -> str:
-        return cls.__name__.lower() + 's'
+        return cls.__name__.lower() + "s"
 
     id: Mapped[int] = mapped_column(primary_key=True)
 
@@ -25,17 +25,11 @@ class User(Base):
         "Task",
         back_populates="user",
         cascade="all, delete-orphan",
-        passive_deletes=True
+        passive_deletes=True,
     )
 
 
 class Task(Base):
     task: Mapped[str] = mapped_column(String(1000))
-    user_id: Mapped[int] = mapped_column(
-        ForeignKey('users.id')
-    )
-    user = relationship(
-        "User",
-        back_populates="tasks",
-        passive_deletes=True
-    )
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+    user = relationship("User", back_populates="tasks", passive_deletes=True)

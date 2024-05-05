@@ -21,3 +21,39 @@ async def set_task(tg_id: int, task: str) -> None:
         )
         session.add(Task(user_id=user.id, task=task))
         await session.commit()
+
+
+async def get_task(tg_id: int):
+    async with db_helper.get_scope_session() as session:
+        user: User = await session.scalar(
+            select(User).where(User.tg_id == tg_id)
+        )
+        if user is None:
+            yield []
+        else:
+            result = await session.execute(
+                select(Task).where(Task.user_id == user.id)
+            )
+            tasks: list[Task] = result.scalars().all()
+            await session.commit()
+            yield tasks
+
+
+async def del_task(tg_id: int, id_tasks: list) -> None:
+    async with db_helper.get_scope_session() as session:
+        user: User = await session.scalar(
+            select(User).where(User.tg_id == tg_id)
+        )
+
+        if user is None:
+            return
+
+        try:
+            for id in id_tasks:
+                task = await session.get(Task, id)
+                if task:
+                    await session.delete(task)
+            await session.commit()
+        except Exception as e:
+            print(f"Ошибка при удалении задачи: {e}")
+            await session.rollback()

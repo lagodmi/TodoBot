@@ -5,21 +5,7 @@ from sqlalchemy.ext.asyncio import (
 )
 from contextlib import asynccontextmanager
 
-from config import (
-    USER,
-    PASSWORD,
-    DB,
-    HOST,
-    PORT,
-)
-
-# для дебага
-
-# HOST = "localhost"
-# PORT = 5433
-
-DATABASE_URL = f"postgresql+asyncpg://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB}"
-ECHO = True
+from config import ECHO, DATABASE_URL
 
 
 class DatabaseHelper:
