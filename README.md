@@ -11,7 +11,9 @@ TODOBOT представляет собой Telegram-бот, который сп
 
 ## Запуск проекта:
 - Клонируйте репозиторий:
-    - https://github.com/lagodmi/TodoBot.git
+      ```
+      https://github.com/lagodmi/TodoBot.git
+      ```
 - Переименуйте файл .env.example в .env.
 - В файле .env:
     - Впишите ваш токен бота в поле TOKEN.
