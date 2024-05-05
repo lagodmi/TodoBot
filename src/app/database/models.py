@@ -8,6 +8,8 @@ from sqlalchemy.orm import (
 )
 from sqlalchemy.ext.asyncio import AsyncAttrs
 
+from config import MAX_LEN_TASK
+
 
 class Base(AsyncAttrs, DeclarativeBase):
     __abstract__ = True
@@ -30,6 +32,6 @@ class User(Base):
 
 
 class Task(Base):
-    task: Mapped[str] = mapped_column(String(1000))
+    task: Mapped[str] = mapped_column(String(MAX_LEN_TASK))
     user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
     user = relationship("User", back_populates="tasks", passive_deletes=True)

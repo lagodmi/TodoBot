@@ -18,3 +18,5 @@ PORT = os.getenv("DB_PORT")
 
 DATABASE_URL = f"postgresql+asyncpg://{USER}:{PASSWORD}@{HOST}:{PORT}/{DB}"
 ECHO = False
+
+MAX_LEN_TASK = 1000
