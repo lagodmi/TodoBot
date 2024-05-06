@@ -66,7 +66,7 @@ async def get_tasks(message: Message, state: FSMContext):
 @router.message(Command("del"))
 async def delete_task(message: Message, state: FSMContext):
     await state.set_state(DelTask.task)
-    await message.answer("Введите задачи для удаления через пробел:",
+    await message.answer("Введите номера задач для удаления через пробел:",
                          reply_markup=kb)
 
 
